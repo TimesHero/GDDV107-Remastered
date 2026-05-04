@@ -17,4 +17,35 @@ The purpose here is not to rush. The purpose is to rebuild the concepts in the e
 
 - **Week 3: Polish and Persistence.** We take that prototype and make it real. That means adding audio, particle systems, high scores, and a clean flow between multiple scenes without the whole thing exploding. 
 
+### Day One - Log Entry
+
+As I am 4 semesters into my Game Development program, familiarizing myself with the unity environment is something I've already accomplished. Its nice to have some refreshers regarding best practices I suppose.
+
+- **Accomplishments**
+    - Created core project
+    - Created project repository on github
+    - Troubleshot some Linux functionality issues
+        - CachyOS - was stalling every time I alt+tab in or out of Unity. Forced to run in Vulkan instead of Wayland. Not entirely gone, but more managable. Will further troubleshoot later.
+    - Created general scenes for the project
+        - Main Menu
+        - Game scene
+        - Sand box (for other practice)
+    - Created general folders in project
+        - Art
+        - Audio
+        - UI
+        - Scripts
+        - Materials
+        - Prefabs
+    - Read and reviewed
+        - "GDDV107's Course Content" - Module 1
+        - "Unity In Action" - Chapter 1
+        - "Learning C\#" - Chapter 1
+
+I intend to get a head start on Day 2's readings and perhaps even complete its to-do list.
+
+
+### Day Two - Log Entry
+
+Coming Soon!
 
