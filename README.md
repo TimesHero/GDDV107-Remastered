@@ -45,7 +45,25 @@ As I am 4 semesters into my Game Development program, familiarizing myself with 
 I intend to get a head start on Day 2's readings and perhaps even complete its to-do list.
 
 
-### Day Two - Log Entry - May 4th, 2026
+### Day Two - Log Entry - May 4th, 2026 && May 5th, 2026.
+
+#### Part 1
+
+I was able to begin this early as the previous day was a straight forward refresher.
+
+- **Accomplishments**
+    - Created DayTwoPractice.cs to gain some basic structure practice
+    - Implemented some basic math stuff from "Learning C\#" text book and played with dynamic and hard-coded values
+    - Organized with \[Header("")]s
+    - Made use of 2 Methods, and a new   class within the same script, calling them in Start\()
+        - ComputeAge - Simple int calculation
+        - PostageParse - draws from the methods within the PostOffice class
+    - Formatted some warning logs for easy reading the different code segments in the console
+    - Began Reading "Unity In Action" Chapter 2
+    - It turns out was my OS stalling issue was due to KDE Plasma Wayland, so I switched to Plasma X11 to resolve the issue.
+    
+Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and the first 3 sections of the course content.
+
+#### Part 2
 
 Coming Soon!
-
