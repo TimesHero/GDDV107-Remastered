@@ -11,13 +11,13 @@ This is a 3-week, 15-day crash-course through the absolute fundamentals of Unity
 
 The purpose here is not to rush. The purpose is to rebuild the concepts in the exact order my college course introduced them, and then apply them into the one project. The requirements of the project closely align with arguably the most important assignment from class.
 
-- **Week 1: The Foundation.** We are setting up a clean Unity project and making sure our variables, arrays, and loops actually compile. 
+- **Week 1: The Foundation.** I will set up a clean Unity project and making sure our variables, arrays, and loops actually compile. 
 
-- **Week 2: The Systems.** We are putting a player on the screen and adding movement, hazards, score pickups, and a lose condition. By the end of this week, we will have a playable prototype. 
+- **Week 2: The Systems.** I will be putting a player on the screen and adding movement, hazards, score pickups, and a lose condition. By the end of this week, there will be a playable prototype. 
 
-- **Week 3: Polish and Persistence.** We take that prototype and make it real. That means adding audio, particle systems, high scores, and a clean flow between multiple scenes without the whole thing exploding. 
+- **Week 3: Polish and Persistence.** I will take that prototype and make it real. That means adding audio, particle systems, high scores, and a clean flow between multiple scenes without the whole thing exploding. 
 
-### Day One - Log Entry
+### Day One - Log Entry: May 4th, 2026
 
 As I am 4 semesters into my Game Development program, familiarizing myself with the unity environment is something I've already accomplished. Its nice to have some refreshers regarding best practices I suppose.
 
@@ -45,7 +45,7 @@ As I am 4 semesters into my Game Development program, familiarizing myself with 
 I intend to get a head start on Day 2's readings and perhaps even complete its to-do list.
 
 
-### Day Two - Log Entry
+### Day Two - Log Entry - May 4th, 2026
 
 Coming Soon!
 
