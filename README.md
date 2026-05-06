@@ -64,6 +64,15 @@ I was able to begin this early as the previous day was a straight forward refres
     
 Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and the first 3 sections of the course content.
 
-#### Part 2
+#### Part 2 - 
 
-Coming Soon!
+- **Accomplishments**
+    - Finished Chapter 2.
+    - Followed along with Chapter 3 of "Learning C#"
+        - Stored int string, bool variables
+        - got fancy with an if statement arounf the bool
+        - passed references
+        - returned values
+    - Made 3 different enum lists
+
+
