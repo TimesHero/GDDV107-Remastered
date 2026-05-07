@@ -64,7 +64,7 @@ I was able to begin this early as the previous day was a straight forward refres
     
 Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and the first 3 sections of the course content.
 
-#### Part 2 - 
+#### Part 2 - May 5th, 2026
 
 - **Accomplishments**
     - Finished Chapter 2.
@@ -75,4 +75,41 @@ Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and
         - returned values
     - Made 3 different enum lists
 
+### Day Three - Log Entry - May 6th, 2026
 
+#### Part 1 - May 6th, 2026
+- **Accomplishments**
+    - Read and followed along with "Learning C#" Chapter 4
+        - if/else statement
+            - I touched on this briefly yesterday, because I understand the fundamentals, but its a nice refresher of the formal texts.
+            - example uses a bool to determine if you are in posession of a key or not.
+            - The next example did a "if gold > \#", "else if gold \< \#", "else the sweetspot"
+                - This makes sense for when you have a condition resulting in multiple different outcomes based on the watched variable.
+                - Doesn't quite explain why you wouldn't just use multiple ifs and one else.
+            - The '!' is the "not operator" as in if(!playerHasKey) meaning player has key is false, or player does NOT have the key.
+            - I nested an if within an if. If you have a weapon, it checks what that weapon is. If its not equipped, it will encourage you to equip something
+        - Switch/Case things
+            - used it for generic character actions
+            - simulated a "fall through" where the dice value was undefined, so it skipped it and went to the next available case
+        - Arrays
+            - can't be modified without wiping contents
+            - contains elements stored to an index reference. Index starts at 0.
+            - EXAMPLE: elementType[] name = new elementType[numberOfElements]; || int[] TopPlayerScores = new int[3];
+                - This will hold the top 3 scores, with indexes of 0, 1, 2.
+            - Multi-dimensional arrays work like rows and columns (but you can have up to 32 rows/colums for some reason? like rows and columns are 2 dimensions, so 32 dimensions? wild.)
+                - int[,] Coordinates = new int[3,2]; <-- 3 rows and 2 columns
+                    - { 
+                        {5,4},
+                        {1,7}, 
+                        {9,3} 
+                      };
+        - Lists
+            - Easier to Add, remove, or update
+            - List<elementType> name = new List<elementType>() { value1, value2 };
+            - Added a list of characters and played with adding and removing them.
+
+- **Blockers**
+    - This section of the text book was more complicated than anticipated. Most is refresher, and nice to practice. I'm up to dictionaries now. We'll see how this goes. Haven't even gotten to loops yet, but I already know how nicely that will tie into Lists. Glad I baked some flexibility into this plan.
+
+#### Part 2 - May 7th, 2026
+- Comins Soon!

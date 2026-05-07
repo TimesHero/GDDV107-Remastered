@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "GDDV107-Remastered.slnx",
+    "dotnet.defaultSolution": "GDDV107-Summer26Review.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
