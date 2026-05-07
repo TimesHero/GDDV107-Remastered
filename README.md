@@ -112,4 +112,15 @@ Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and
     - This section of the text book was more complicated than anticipated. Most is refresher, and nice to practice. I'm up to dictionaries now. We'll see how this goes. Haven't even gotten to loops yet, but I already know how nicely that will tie into Lists. Glad I baked some flexibility into this plan.
 
 #### Part 2 - May 7th, 2026
-- Comins Soon!
+- **Accomplishments**
+    - Dictionaries
+        - Its weird that what now functions as the index is now the key, which is a string.
+    - For Loops
+        - had to make the for loop go backwards and count through a second list of characters in waiting. Probably would have been easier had I just used a while loop, but I'm afraid of those sometimes lol.
+    - foreach Loop
+        - This would be good if the characters had a status message. Combined with some ifs, or switch cases, (and probably a scriptable object later on) i can probably make them shout out their current health value or have a little quip if its at a certain percentage of the maximum amount.
+    - Looping through key values
+        - Text book example is going back up to the dictionary from earlier. It looks like it would be good for populating an inventory with the item name and quantity held or perhaps price or other value.
+    - While Loops
+        - if the character is still alive for example, you can have it report back its status while health > 0 and such. but it can be easy to make it accidentally loop forever. can also happen in for loops but I've accidentally made it happen in the past.
+

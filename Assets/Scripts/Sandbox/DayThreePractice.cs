@@ -14,6 +14,10 @@ public class DayThreePractice : MonoBehaviour
     public string characterAction = "Attack";
     public int dice = 7;
 
+    [Header("List Things")]
+    List<string> PartyMembers = new List<string>();
+    List<string> WaitingCharacters = new List<string>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +26,8 @@ public class DayThreePractice : MonoBehaviour
         PrintCharacterAction();
         RollDice();
         CharacterList();
+        ItemDictionary();
+        PartyLoops();
     }
 
     public void WeaponCheck()
@@ -86,7 +92,7 @@ public class DayThreePractice : MonoBehaviour
 
         switch(dice)
         {
-            case 7:
+            case 7: //will fall through to the next with an assigned thing to do.
             case 15:
                 Debug.Log($"Damage done!");
                 break;
@@ -99,10 +105,10 @@ public class DayThreePractice : MonoBehaviour
         }
     }
 
-    public void CharacterList()
+    public void CharacterList() //Played with adding and removing things from a list.
     {
         Debug.LogWarning("<color=cyan>-----[Party Members]-----</color>");
-        List<string> PartyMembers = new List<string>()
+        PartyMembers.AddRange(new string[]
         {
             "Astarion the High Elf Rogue",
             "Gale the Human Wizard",
@@ -110,7 +116,7 @@ public class DayThreePractice : MonoBehaviour
             "Lae'zel the Githyanki Fighter",
             "Shadowheart the High Half-Elf Cleric",
             "Wyll the Human Warlock"
-        };
+        });
 
         Debug.LogFormat("Total Party Members: {0}", PartyMembers.Count);
 
@@ -123,6 +129,54 @@ public class DayThreePractice : MonoBehaviour
         Debug.Log($"{eatenMember} was eaten by a bear! Party Count is now {PartyMembers.Count}");
     }
 
+    public void ItemDictionary()
+    {
+        Debug.LogWarning("<color=cyan>-----[Player Inventory]-----</color>");
+        Dictionary<string, int> ItemInventory = new Dictionary<string, int>()
+        {
+            { "Potion", 5},
+            { "Antidote", 7},
+            { "Cheese", 2}
+        };
 
+        Debug.Log($"{ItemInventory["Antidote"]}"); //So this will only print 7, the value beside the string "key"
+    }
+
+    public void PartyLoops()
+    {
+        string transitioningCharacter;
+        WaitingCharacters.AddRange(new string[]
+        {
+            "Alfira the Tiefling Bard",
+            "Minsc the Human Ranger/Hunter",
+            "Minthara the Drow Paladin",
+            "Scratch the Dog",
+            "Sazza the Goblin Brawler"
+        });
+        Debug.LogWarning("<color=cyan>-----[Loops and Such]-----</color>");
+        int totalCharacters = PartyMembers.Count;
+
+        Debug.Log($"There are {totalCharacters} in your party right now.");
+        for  (int i = 0; i < totalCharacters; i++)
+        {
+            Debug.Log($"Party member number{i+1}: {PartyMembers[i]}");
+        }
+
+        if (PartyMembers.Count < 10)
+        {
+            for (int i = WaitingCharacters.Count-1; i >= 0; i--)
+            {
+                if (PartyMembers.Count >= 10)
+                {
+                    Debug.Log("Your Party is now Full.");
+                    break;
+                }
+                transitioningCharacter = WaitingCharacters[i];
+                WaitingCharacters.RemoveAt(i);
+                PartyMembers.Add(transitioningCharacter);
+                Debug.Log($"{transitioningCharacter} has joined your party!");
+            }
+        }  
+    }
 
 }
