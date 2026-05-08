@@ -15,8 +15,8 @@ public class DayThreePractice : MonoBehaviour
     public int dice = 7;
 
     [Header("List Things")]
-    List<string> PartyMembers = new List<string>();
-    List<string> WaitingCharacters = new List<string>();
+    [SerializeField] List<string> PartyMembers = new List<string>();
+    [SerializeField] List<string> WaitingCharacters = new List<string>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
