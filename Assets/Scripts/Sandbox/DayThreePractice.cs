@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
+using NUnit.Framework;
+using UnityEditor.ShaderGraph.Internal;
 
 public class DayThreePractice : MonoBehaviour
 {
@@ -17,6 +21,7 @@ public class DayThreePractice : MonoBehaviour
     [Header("List Things")]
     [SerializeField] List<string> PartyMembers = new List<string>();
     [SerializeField] List<string> WaitingCharacters = new List<string>();
+    [SerializeField] int[] HighScores = new int[25];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +33,7 @@ public class DayThreePractice : MonoBehaviour
         CharacterList();
         ItemDictionary();
         PartyLoops();
+        GridArray();
     }
 
     public void WeaponCheck()
@@ -177,6 +183,54 @@ public class DayThreePractice : MonoBehaviour
                 Debug.Log($"{transitioningCharacter} has joined your party!");
             }
         }  
+    }
+
+    public void GridArray()
+    {
+        Debug.LogWarning("<color=cyan>-----[Grid Array Loopy Thing]-----</color>");
+        int highestScore = int.MinValue;
+        int lowestScore = int.MaxValue;
+        int scoresAdded = 0;
+
+        //Fill The arrray
+        for(int i = 0; i < HighScores.Length; i++)
+        {
+            HighScores[i] = Random.Range(1,100);
+            
+            Debug.Log($"{HighScores[i]}");
+
+            if(HighScores[i] >= highestScore)
+            {
+                highestScore = HighScores[i];
+            }
+            if(HighScores[i] <= lowestScore)
+            {
+                lowestScore = HighScores[i];
+            }
+
+            scoresAdded = scoresAdded + HighScores[i];
+
+        }
+
+        Debug.Log($"Highest Score = {highestScore}");
+        Debug.Log($"Lowest Score = {lowestScore}");
+        Debug.Log($"Added Scores = {scoresAdded}");
+
+        string gridPrint = "";
+
+        for(int i = 0; i < HighScores.Length; i++)
+        {
+            gridPrint = gridPrint + HighScores[i] + "\t";
+
+            if ((i + 1) % 5 == 0)
+            {
+                gridPrint = gridPrint + "\n";
+            }
+        }
+
+        Debug.Log($"{gridPrint}");
+
+
     }
 
 }

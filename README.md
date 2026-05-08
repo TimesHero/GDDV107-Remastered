@@ -123,4 +123,16 @@ Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and
         - Text book example is going back up to the dictionary from earlier. It looks like it would be good for populating an inventory with the item name and quantity held or perhaps price or other value.
     - While Loops
         - if the character is still alive for example, you can have it report back its status while health > 0 and such. but it can be easy to make it accidentally loop forever. can also happen in for loops but I've accidentally made it happen in the past.
+    - The Grid
+        - First I made an array of 25, full of random values between 1 & 100
+        - Then I made the same loop figure out the highest, lowest of in that array, then i made it add them all up.
+        - then came the grid
+            - I was probably never going to figure this out again without looking it up. Essentially its one loop that prints the array value to a string and add a tab after it. Then, you check if the current index +1 is % 5. Modulo is weird because it checks the "remainder" after division. The 5 means its divisible by 5, so 5, 10, 15, 20, and 25 it will add a new line. 
+                - 1 2 3 4 **5**
+                - 6 7 8 9 **10**
+                - etc.
+    - Now I'm behind a day. I should be able to make it up this weekend. This section was way more packed than I anticipated, unfortunately.
+
+### Day 4 - May 8, 2026
+- Coming Soon.
 
