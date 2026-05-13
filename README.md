@@ -123,16 +123,40 @@ Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and
         - Text book example is going back up to the dictionary from earlier. It looks like it would be good for populating an inventory with the item name and quantity held or perhaps price or other value.
     - While Loops
         - if the character is still alive for example, you can have it report back its status while health > 0 and such. but it can be easy to make it accidentally loop forever. can also happen in for loops but I've accidentally made it happen in the past.
-    - The Grid
-        - First I made an array of 25, full of random values between 1 & 100
-        - Then I made the same loop figure out the highest, lowest of in that array, then i made it add them all up.
-        - then came the grid
-            - I was probably never going to figure this out again without looking it up. Essentially its one loop that prints the array value to a string and add a tab after it. Then, you check if the current index +1 is % 5. Modulo is weird because it checks the "remainder" after division. The 5 means its divisible by 5, so 5, 10, 15, 20, and 25 it will add a new line. 
-                - 1 2 3 4 **5**
-                - 6 7 8 9 **10**
-                - etc.
-    - Now I'm behind a day. I should be able to make it up this weekend. This section was way more packed than I anticipated, unfortunately.
 
-### Day 4 - May 8, 2026
-- Coming Soon.
+### Day 4 - Log Entry - May 8, 2026
+- **Accomplishments**
+    - Reviewed the difference between Start() and Update()
+        - Start() is where the script does its setup stuff once, like initializing values, printing opening debug logs, or grabbing references.
+        - Update() is for things that need to be checked constantly, which is not everything apparently.
+    - Reviewed some object-oriented programming basics
+        - Classes are essentially the containers/blueprints.
+        - Variables hold the data.
+        - Methods do the work.
+        - Unity scripts are classes that become components when attached to GameObjects.
+    - Looked at how Unity references can be assigned through the Inspector
+        - This feels cleaner than trying to magically find everything through code every time.
+    - Continued using debug logs to confirm each section works before moving on
+        - This still feels boring, but it is probably better than guessing why something broke later.
+
+- **Notes**
+    - A lot of this was refresher for things I've been doing since semester one. Mostly reading the texts.
+    - I can better see how this connects to the actual side-scroller project. The player, hazards, score manager, UI manager, and pickups should probably not all be one script.
+    - Start() and Update() are familiar, especially as they show up with every new Monobehaviour.
+
+- **Blockers**
+    - I still need more practice deciding when something should be its own script vs. when I am just overcomplicating it.
+    - Script communication makes sense on a high level, but if I'm not paying attention, things could go off the rails.
+    - I am still slightly behind schedule, but this cleanup day was probably necessary before moving into UI."
+
+### Day 5 - Log Entry - May 9, 2026
+
+- **Accomplishments**
+    - Variables and methods feel fine.
+    - Enums make sense, but I probably need to use them in a real gameplay context before they fully stick. Seems like a good way to track Paused/Play state, but I'm not entirely sure how to manage that in practice. I also imagine it working in the context of Pokemon for swapping between status effects like confused, burnt, poisoned, sleep, paralyzed, etc.
+    - Arrays and loops: I still need repetition, especially when the logic gets more complicated than just counting through a list.
+
+- **Blockers**
+    - I still have a hard time deciding where or how to start. I think Day 6 might need some adjustment from the full plan. Maybe coming up with a simple GDD for what I want to make would be a good step?
+    - Arrays, loops, and conditions make sense individually, but combining them still takes more thinking than I would like.
 
