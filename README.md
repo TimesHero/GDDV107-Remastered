@@ -17,6 +17,15 @@ The purpose here is not to rush. The purpose is to rebuild the concepts in the e
 
 - **Week 3: Polish and Persistence.** I will take that prototype and make it real. That means adding audio, particle systems, high scores, and a clean flow between multiple scenes without the whole thing exploding. 
 
+## Asset Attributions
+
+### Art
+
+### Audio
+- Huge distant sub explosion by NomisBright -- https://freesound.org/s/854416/ -- License: Creative Commons 0
+- Sci‑Fi Game Sound Effects by Magic Sound Effects (Unity Asset Store)
+
+## Patch Notes
 ### Day One - Log Entry: May 4th, 2026
 
 As I am 4 semesters into my Game Development program, familiarizing myself with the unity environment is something I've already accomplished. Its nice to have some refreshers regarding best practices I suppose.
@@ -160,3 +169,230 @@ Tomorrow, the real Day Two, I will complete the readings of chapter 2 and 3, and
     - I still have a hard time deciding where or how to start. I think Day 6 might need some adjustment from the full plan. Maybe coming up with a simple GDD for what I want to make would be a good step?
     - Arrays, loops, and conditions make sense individually, but combining them still takes more thinking than I would like.
 
+### Day 6 - Log Entry - May 10–11, 2026
+
+I decided that before going any deeper into the actual side-scroller, I should set up the basic project flow properly. A game scene by itself is fine for testing, but the actual assignment structure eventually needs a main menu, scene transitions, and a cleaner project layout.
+
+- **Accomplishments**
+    - Created a new `MainMenuScene`
+    - Added basic interactive UI elements for:
+        - Starting the game
+        - Viewing high scores
+        - Accessing how-to-play instructions
+        - Quitting the application
+    - Created a `MainMenuManager` script to handle navigation between the main menu and the game scene
+    - Renamed `Game Scene.unity` to `GameScene.unity` for cleaner scene naming
+    - Added an `EventSystem` to both the `MainMenuScene` and `GameScene`
+        - This should keep UI input handling more consistent with the Unity Input System
+    - Restructured some related project/meta files to better match the updated scene organization
+
+- **Notes**
+    - This was not the most exciting day, but it was useful foundation work.
+    - Scene naming and menu navigation are the kind of things that seem boring until they break later.
+    - Since this remake is supposed to become a real playable loop, I want the project to have a menu/game structure early rather than stapling it on at the end.
+
+- **Blockers**
+    - I still had not moved into the actual gameplay loop yet.
+    - This is where the plan started drifting from “review concepts first” into “I probably should have been building the game while reviewing the concepts.”
+
+### Day 7 to 12 - Log Entry - May 12–24, 2026
+
+This is the part of the project where the schedule got ugly.
+
+The week of May 12 included my wife's birthday, family obligations, helping a friend with a 3D printer setup, household chores, and other projects. That does not fully excuse the lost momentum, but it does explain where some of the time went. I also lost more focus than I should have, which is exactly the kind of problem this summer plan is supposed to expose and work around.
+
+This is also why I built the plan with a 3-week window. The 4th week was always meant to be a bonus, and now it's officially being used.
+
+- **Accomplishments**
+    - Settled on a new theme direction for the remake
+        - The game will move away from the old paper airplane theme
+        - The new direction is a space side-scroller
+        - The player will likely become a small spaceship
+        - The background can use stars, planets, moons, and other space objects
+    - Decided to keep using placeholder objects until the gameplay works
+        - Art polish can come later
+        - Gameplay has to become functional first
+    - Reinitialized and configured Unity's Input System settings
+    - Reinitialized the `GameScene` with core objects, including:
+        - Player
+        - Main Camera
+        - EventSystem
+    - Introduced the `PlayerMovement` script to handle player input and 2D movement
+    - Updated Input Actions to support movement from:
+        - Keyboard
+        - Mouse
+        - Touch
+    - Added `UserSettings/` to `.gitignore`
+        - This keeps user-specific editor configuration files out of version control
+    - Used NotebookLM quizzes and generated study material to reinforce concepts from the course content and textbooks
+
+- **Notes**
+    - I originally tried building the movement using Unity's older input approach, then remembered that Unity 6 expects the newer Input System workflow.
+    - The Input System took more time than expected because it is not just “read WASD and move.” It also involves actions, bindings, the Player Input component, and making sure the correct event is calling the correct function.
+    - Asking for help became the last resort after spending too much time circling the same problem.
+    - For the next project, especially the GDDV206 review, I think the plan needs to change.
+        - Start with the game idea first.
+        - Write a small GDD first.
+        - Write pseudocode based on the concepts I am trying to learn.
+        - Learn the programming concepts in the context of the game, rather than reviewing them in the abstract and trying to attach them afterward.
+
+- **Blockers**
+    - Focus and schedule management were worse than expected during this stretch.
+    - I spent too long in review/planning mode and not enough time building the actual side-scroller.
+    - The Input System became a blocker because movement was partially working, then stopped behaving the way I needed it to.
+    - I am now behind the original ideal pace, but this is the exact reason the plan had an extra week built into it.
+    
+### Day 13 - Log Entry - May 25, 2026
+
+Today became the “make the player work properly” day.
+
+The current priority is no longer abstract review. The priority is to get the actual side-scroller functioning with placeholders. Make it work first. Make it pretty later.
+
+- **Accomplishments**
+    - Revisited the `PlayerMovement` script
+    - Confirmed that the player object is using:
+        - A parent `Player` object
+        - A child `PlayerSprite` object
+        - A `Rigidbody2D`
+        - A `Player Input` component using the new Input System
+    - Cleaned up the movement logic so the Rigidbody2D handles movement
+        - This avoids mixing physics movement with direct `transform.position` movement
+    - Reworked the rotation/tilt logic
+        - The child sprite can now keep its Inspector rotation as the base sideways pose
+        - The script adds vertical tilt on top of that base pose
+        - This is important because this is a side-scroller, so the player should visually face sideways by default
+    - Added casual explanatory comments to the movement script
+        - Comments now explain why certain choices are being made instead of just repeating what the code says
+    - Clarified the current production rule:
+        - Functional gameplay first
+        - Placeholder art is acceptable
+        - Polish comes after the loop works
+
+- **Notes**
+    - The player movement script is the first real gameplay contribution to the side-scroller remake.
+    - The new space theme gives the project a clearer direction, but the theme should not slow down the systems work.
+    - A spaceship, stars, and a slow-moving planet in the lower part of the frame would fit the remake well, but those are polish targets. The project still needs hazards, pickups, scoring, lose conditions, and scene flow before the art pass matters.
+
+- **Blockers**
+    - I need to verify movement in the editor after each script adjustment.
+    - The player controls have to be stable before I build hazards or pickups around them.
+    - I have used up the schedule buffer, so the rest of the week needs to be implementation-focused.
+
+## Current Project Status - May 25, 2026
+
+At this point, the project is behind the ideal version of the schedule, but it is not dead. The menu structure has been started, the game scene exists, the Input System has been set up, and the player movement script is being corrected.
+
+The next step is to stop widening the scope and finish the playable loop with placeholders.
+
+#### Current State
+
+- **Working / Started**
+    - Main menu scene
+    - Game scene
+    - Scene naming cleanup
+    - EventSystem setup
+    - Unity Input System setup
+    - Player object
+    - Player movement script
+    - Player sideways-facing/tilt logic
+    - Placeholder-first production approach
+    - Space theme direction
+
+- **Needs Verification**
+    - WASD movement in the editor
+    - Player tilt while moving up/down
+    - Player returning to sideways-facing pose when no vertical input is pressed
+    - Main menu button flow into the game scene
+
+- **Not Started / Still Needs Implementation**
+    - Hazard collision
+    - Hazard spawning
+    - Score pickups
+    - Power-up pickup
+    - Score manager
+    - HUD score display
+    - Game over state
+    - Restart flow
+    - High score saving
+    - Parallax background
+    - Audio feedback
+    - Particle feedback
+    - Final art pass
+
+## Bonus Week Recovery Plan
+
+The goal for the rest of this week is to finish a playable version of the side-scroller remake. The game does not need final art yet. It needs to function.
+
+### Priority 1 - Make the Player Reliable
+
+- [✓] Confirm WASD movement works in Play Mode
+- [✓] Confirm the player remains sideways by default
+- [✓] Confirm the player tilts up when moving up
+- [✓] Confirm the player tilts down when moving down
+- [✓] Confirm the Rigidbody2D parent stays clean while the child sprite handles visual rotation
+- [ ] Add player death detection using `OnTriggerEnter2D` or `OnCollisionEnter2D`
+- [ ] Add pickup detection using `GetComponent<>()` and null checks
+
+### Priority 2 - Build the Core Gameplay Loop
+
+- [ ] Create at least one basic hazard prefab
+- [ ] Make hazards move across the screen
+- [ ] Destroy hazards when they leave the screen
+- [ ] Create a basic hazard spawner
+- [ ] Add game over when the player hits a hazard
+- [ ] Create a basic score pickup
+- [ ] Increase score when the player collects the pickup
+- [ ] Destroy pickups after collection
+
+### Priority 3 - Close the UI Loop
+
+- [ ] Add a TextMeshPro HUD score display
+- [ ] Add a Game Over panel
+- [ ] Show final score on Game Over
+- [ ] Add a Restart button
+- [ ] Add a Quit/Menu button
+- [ ] Confirm Main Menu loads GameScene
+- [ ] Confirm Restart reloads GameScene
+
+### Priority 4 - Add Required Assignment Features
+
+- [ ] Create three distinct hazard types
+- [ ] Add randomized spawning
+- [ ] Create a power-up pickup
+- [ ] Make the power-up temporarily affect player state
+- [ ] Save high score using `PlayerPrefs.SetInt()`
+- [ ] Load high score using `PlayerPrefs.GetInt()`
+- [ ] Display high score on the menu
+
+### Priority 5 - Make It Look and Feel Like a Game
+
+- [ ] Replace placeholder player with spaceship art
+- [ ] Add star background
+- [ ] Add at least two parallax layers
+- [ ] Add a large planet or moon that slowly moves through the lower portion of the frame
+- [ ] Add hazard art
+- [ ] Add pickup art
+- [ ] Add menu art
+- [ ] Add background music or ambient space audio
+- [ ] Add pickup sound
+- [ ] Add collision sound
+- [ ] Add death particles
+- [ ] Add pickup particles
+
+### Practical Rule
+
+Do not polish a system that does not work yet.
+
+The order is:
+
+1. Movement
+2. Hazards
+3. Pickups
+4. Score
+5. Game Over
+6. Restart
+7. High Score
+8. Parallax
+9. Audio
+10. Particles
+11. Final Art
