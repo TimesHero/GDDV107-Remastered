@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerHandler : MonoBehaviour
 {
     [Header("Player Components")]
     [SerializeField] Rigidbody2D rb; 
@@ -121,5 +121,18 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+    #endregion
+
+    #region PLAYER_DEATH
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if(collision.CompareTag("Hazard"))
+        {
+            Debug.Log($"Player has hit an object.");
+            //Don't forget to add UI/Game Over Logic later.
+
+            gameObject.SetActive(false);
+        }
+    }
     #endregion
 }
