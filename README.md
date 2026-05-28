@@ -330,19 +330,19 @@ The goal for the rest of this week is to finish a playable version of the side-s
 - [✓] Confirm the player tilts up when moving up
 - [✓] Confirm the player tilts down when moving down
 - [✓] Confirm the Rigidbody2D parent stays clean while the child sprite handles visual rotation
-- [ ] Add player death detection using `OnTriggerEnter2D` or `OnCollisionEnter2D`
+- [✓] Add player death detection using `OnTriggerEnter2D` or `OnCollisionEnter2D`
 - [ ] Add pickup detection using `GetComponent<>()` and null checks
 
 ### Priority 2 - Build the Core Gameplay Loop
 
-- [ ] Create at least one basic hazard prefab
-- [ ] Make hazards move across the screen
-- [ ] Destroy hazards when they leave the screen
-- [ ] Create a basic hazard spawner
-- [ ] Add game over when the player hits a hazard
-- [ ] Create a basic score pickup
-- [ ] Increase score when the player collects the pickup
-- [ ] Destroy pickups after collection
+- [✓] Create at least one basic hazard prefab
+- [✓] Make hazards move across the screen
+- [✓] Destroy hazards when they leave the screen
+- [✓] Create a basic hazard spawner
+- [✓] Add game over when the player hits a hazard
+- [✓] Create a basic SHIELD pickup
+- [✓] Player Collects Pickup, shield surrounds player and can absorb one impact.
+- [✓] Destroy pickups after collection
 
 ### Priority 3 - Close the UI Loop
 

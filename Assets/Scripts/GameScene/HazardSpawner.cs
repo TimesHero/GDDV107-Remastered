@@ -11,6 +11,8 @@ public class HazardSpawner : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.Instance != null)
+
         //Time.deltaTime is the time in seconds it took to complete the last frame. Adding it to a variable creates a real-time timer, apparently.
         timer += Time.deltaTime;
 
