@@ -196,5 +196,20 @@ public class PlayerHandler : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("NearMiss"))
+        {
+            Debug.Log($"Hazard Near Miss!");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.RegisterNearMiss();
+            } 
+
+            Destroy(collision.gameObject);
+        }
+    }
+    
 #endregion
 }

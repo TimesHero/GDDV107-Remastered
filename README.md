@@ -346,23 +346,23 @@ The goal for the rest of this week is to finish a playable version of the side-s
 
 ### Priority 3 - Close the UI Loop
 
-- [ ] Add a TextMeshPro HUD score display
-- [ ] Add a Game Over panel
-- [ ] Show final score on Game Over
-- [ ] Add a Restart button
-- [ ] Add a Quit/Menu button
-- [ ] Confirm Main Menu loads GameScene
-- [ ] Confirm Restart reloads GameScene
+- [✓] Add a TextMeshPro HUD score display
+- [✓] Add a Game Over panel
+- [✓] Show final score on Game Over
+- [✓] Add a Restart button
+- [✓] Add a Quit/Menu button
+- [✓] Confirm Main Menu loads GameScene
+- [✓] Confirm Restart reloads GameScene
 
 ### Priority 4 - Add Required Assignment Features
 
 - [ ] Create three distinct hazard types
-- [ ] Add randomized spawning
-- [ ] Create a power-up pickup
-- [ ] Make the power-up temporarily affect player state
-- [ ] Save high score using `PlayerPrefs.SetInt()`
-- [ ] Load high score using `PlayerPrefs.GetInt()`
-- [ ] Display high score on the menu
+- [✓] Add randomized spawning
+- [✓] Create a power-up pickup
+- [✓] Make the power-up temporarily affect player state
+- [✓] Save high score using `PlayerPrefs.SetInt()`
+- [✓] Load high score using `PlayerPrefs.GetInt()`
+- [✓] Display high score on the menu
 
 ### Priority 5 - Make It Look and Feel Like a Game
 
