@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -25,10 +26,27 @@ public class PlayerHandler : MonoBehaviour
     [Header("Player Dead")]
     [SerializeField] public bool isFalling = false; //when the player object dies, it will fall off screen
 
+    [Header("Toxic Cloud Hazard")]
+    [SerializeField] private float gasDisableTime = 2f;
+    private bool canMove = true;
+    private int activeToxicClouds = 0;
+    private float currentToxicTimer = 0f;
+
+    [Header("Screen Space FX")]
+    [SerializeField] private GameObject shieldFX;
+    [SerializeField] private GameObject toxicCloudFX;
+    [SerializeField] private float fxFadeDuration = 0.5f;
+
+    [Header("Particle Systems")]
+    [SerializeField] private GameObject deathParticlesPrefab;
+
+    [Header("Dynamic Boundaries")]
+    [SerializeField] private float boundaryPadding =0.5f;
+    private float xMin, xMax, yMin, yMax;
+
     //WASD input becomes X/Y movement
     private float horizontal;
     private float vertical;
-
     private Quaternion baseRotation; //will hold onto the base rotation set in inspector. Assures correct visual orientation
 #endregion
 
@@ -58,11 +76,30 @@ public class PlayerHandler : MonoBehaviour
     }
 #endregion
 
+#region VOID_START
+    private void Start()
+    {
+        Camera cam = Camera.main;
+        float distance = Mathf.Abs(cam.transform.position.z - transform.position.z);
+
+        float frustumHeight = 2.0f * distance * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float frustumWidth = frustumHeight * cam.aspect;
+
+
+
+        xMin = -(frustumWidth / 2f) + boundaryPadding;
+        xMax = (frustumWidth / 2f) - boundaryPadding;
+        yMin = -(frustumHeight / 2f) + boundaryPadding;
+        yMax = (frustumHeight / 2f) - boundaryPadding;
+    }
+#endregion
+
 #region VOID_UPDATE
     private void Update()
     {
         PlayerControls(); //Just for the visual movement of the player object
         HandleShieldTimer();
+        HandleToxicCloudTimer();
     }
 #endregion
 
@@ -81,10 +118,22 @@ public class PlayerHandler : MonoBehaviour
             return;
         }
 
+        if (!canMove) 
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+
         Vector2 movement = new Vector2(horizontal, vertical);
         movement = Vector2.ClampMagnitude(movement, 1f); //ensure diagonal movement is not faster than linear
 
         rb.linearVelocity = movement * speed; //should avoid fighting between physics and transform.position
+
+        Vector2 clampedPosition = rb.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, xMin, xMax);
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, yMin, yMax);
+        rb.position = clampedPosition;
     }
 #endregion
 
@@ -155,6 +204,14 @@ public class PlayerHandler : MonoBehaviour
                     shieldVisual.SetActive(false);
                     Debug.Log("Shield expired.");
                 }
+
+                if (shieldFX != null)
+                {
+                    StartCoroutine(FadeOutFX(shieldFX, fxFadeDuration));
+                }
+
+                Debug.Log("Shield Expired");
+
             }
         }
     }
@@ -163,26 +220,29 @@ public class PlayerHandler : MonoBehaviour
         Debug.Log("Overlapped with: " + collision.gameObject.name + " | Tag: " + collision.tag);
         if(collision.CompareTag("Hazard"))
         {
-            if(hasShield)//will consume the shield upon impact and destroy the impacted hazard
+            if(hasShield)
             {
                 Debug.Log($"Shield has absorbed the impact.");
                 hasShield = false;
-                if(shieldVisual != null)
-                {
-                    shieldVisual.SetActive(false);
-                }
-
+                if(shieldVisual != null) shieldVisual.SetActive(false);
+                
+                if(shieldFX != null) StartCoroutine(FadeOutFX(shieldFX, fxFadeDuration));
+                
                 Destroy(collision.gameObject);
             }
             else
             {
-            Debug.Log($"Player has hit a hazard.");
-            if(GameManager.Instance != null)
-            {
-                GameManager.Instance.TriggerGameOver();
-            }
+                Debug.Log($"Player has hit a hazard.");
+                
+                if(GameManager.Instance != null) GameManager.Instance.TriggerGameOver();
+                
+                // TL;DR: Spawns the particle burst at the exact coordinates of the player ship
+                if (deathParticlesPrefab != null)
+                {
+                    Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+                }
 
-            gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
         else if (collision.CompareTag("Pickup"))
@@ -190,10 +250,36 @@ public class PlayerHandler : MonoBehaviour
             Debug.Log("Player has collected a shield!");
             hasShield = true;
             currentShieldTimer = maxShieldTime;
-            if(shieldVisual != null)
-                shieldVisual.SetActive(true);
+            if(shieldVisual != null) shieldVisual.SetActive(true);
+
+            if(shieldFX != null)
+            {
+                //Restores full opacity in case the object was previously faded out
+                ResetFXAlpha(shieldFX);
+                shieldFX.SetActive(true);
+            }
 
             Destroy(collision.gameObject);
+        }
+        // activates the visual effect immediately upon entering the cloud
+        else if (collision.CompareTag("ToxicCloud"))
+        {
+            activeToxicClouds++;
+
+            if(activeToxicClouds >= 1)
+            {
+                Debug.Log("Entered Toxic Cloud. Controls Disabled.");
+                canMove = false;
+                horizontal = 0f;
+                vertical = 0f;
+                if (rb != null) rb.linearVelocity = Vector2.zero;
+
+                if (toxicCloudFX != null)
+                {
+                    ResetFXAlpha(toxicCloudFX);
+                    toxicCloudFX.SetActive(true);
+                }
+            }
         }
     }
     
@@ -202,14 +288,112 @@ public class PlayerHandler : MonoBehaviour
         if(collision.CompareTag("NearMiss"))
         {
             Debug.Log($"Hazard Near Miss!");
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.RegisterNearMiss();
-            } 
-
+            if (GameManager.Instance != null) GameManager.Instance.RegisterNearMiss();
             Destroy(collision.gameObject);
         }
+        else if (collision.CompareTag("ToxicCloud"))
+        {
+            // Decrements the overlap counter.
+            activeToxicClouds--;
+            if (activeToxicClouds < 0) activeToxicClouds = 0; // Failsafe
+            
+            if (activeToxicClouds == 0)
+            {
+                Debug.Log("Exited all Toxic Clouds. Countdown started.");
+            }
+        }
     }
-    
+
+    private void HandleToxicCloudTimer()
+    {
+        if (activeToxicClouds > 0)
+        {
+            // While inside ANY cloud, keeps the timer topped off at max.
+            currentToxicTimer = gasDisableTime;
+        }
+        else if (currentToxicTimer > 0f)
+        {
+            // Only ticks down once the player has fully exited all clouds.
+            currentToxicTimer -= Time.deltaTime;
+
+            if (currentToxicTimer <= 0f)
+            {
+                // Timer expired. Restore controls and trigger the fade.
+                currentToxicTimer = 0f;
+                canMove = true;
+                Debug.Log("Controls restored.");
+
+                if (toxicCloudFX != null)
+                {
+                    StartCoroutine(FadeOutFX(toxicCloudFX, fxFadeDuration));
+                }
+            }
+        }
+    }
+#endregion
+
+#region FX_TRANSITIONS
+
+    private IEnumerator FadeOutFX(GameObject fxObject, float duration)
+    {
+        if (fxObject == null) yield break;
+
+        // gathers all visual components within the external prefab
+        Renderer[] renderers = fxObject.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+        {
+            fxObject.SetActive(false);
+            yield break;
+        }
+
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / duration;
+
+            foreach (Renderer r in renderers)
+            {
+                Material mat = r.material;
+                // identifies URP shaders vs Standard shaders and lerps the alpha channel to 0
+                if (mat.HasProperty("_BaseColor")) 
+                {
+                    Color c = mat.GetColor("_BaseColor");
+                    mat.SetColor("_BaseColor", new Color(c.r, c.g, c.b, Mathf.Lerp(1f, 0f, normalizedTime)));
+                }
+                else if (mat.HasProperty("_Color")) 
+                {
+                    Color c = mat.GetColor("_Color");
+                    mat.SetColor("_Color", new Color(c.r, c.g, c.b, Mathf.Lerp(1f, 0f, normalizedTime)));
+                }
+            }
+            yield return null; //pauses execution until the next frame to create a smooth loop over time
+        }
+
+        fxObject.SetActive(false);
+    }
+
+    private void ResetFXAlpha(GameObject fxObject)
+    {
+        if (fxObject == null) return;
+        
+        Renderer[] renderers = fxObject.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in renderers)
+        {
+            Material mat = r.material;
+            if (mat.HasProperty("_BaseColor"))
+            {
+                Color c = mat.GetColor("_BaseColor");
+                mat.SetColor("_BaseColor", new Color(c.r, c.g, c.b, 1f));
+            }
+            else if (mat.HasProperty("_Color"))
+            {
+                Color c = mat.GetColor("_Color");
+                mat.SetColor("_Color", new Color(c.r, c.g, c.b, 1f));
+            }
+        }
+    }
+
 #endregion
 }

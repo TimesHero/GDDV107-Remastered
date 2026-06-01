@@ -20,7 +20,10 @@ The purpose here is not to rush. The purpose is to rebuild the concepts in the e
 ## Asset Attributions
 
 ### Art
-
+- Free Space Shooter Game GUI -- https://craftpix.net/freebies/free-space-shooter-game-gui/ -- https://craftpix.net/file-licenses/
+- Moon HD Wallpaper -- https://wallpapercave.com/w/cWPb5ZJ
+- Spaceship by "TheRealFusion" -- https://jitsukoan.itch.io/spaceship
+- Meteor Images -- https://pngplay.com
 ### Audio
 - Huge distant sub explosion by NomisBright -- https://freesound.org/s/854416/ -- License: Creative Commons 0
 - Sci‑Fi Game Sound Effects by Magic Sound Effects (Unity Asset Store)
@@ -331,7 +334,7 @@ The goal for the rest of this week is to finish a playable version of the side-s
 - [✓] Confirm the player tilts down when moving down
 - [✓] Confirm the Rigidbody2D parent stays clean while the child sprite handles visual rotation
 - [✓] Add player death detection using `OnTriggerEnter2D` or `OnCollisionEnter2D`
-- [ ] Add pickup detection using `GetComponent<>()` and null checks
+- [✓] Add pickup detection using `GetComponent<>()` and null checks
 
 ### Priority 2 - Build the Core Gameplay Loop
 
@@ -356,7 +359,7 @@ The goal for the rest of this week is to finish a playable version of the side-s
 
 ### Priority 4 - Add Required Assignment Features
 
-- [ ] Create three distinct hazard types
+- [✓] Create three distinct hazard types
 - [✓] Add randomized spawning
 - [✓] Create a power-up pickup
 - [✓] Make the power-up temporarily affect player state
@@ -366,18 +369,18 @@ The goal for the rest of this week is to finish a playable version of the side-s
 
 ### Priority 5 - Make It Look and Feel Like a Game
 
-- [ ] Replace placeholder player with spaceship art
-- [ ] Add star background
-- [ ] Add at least two parallax layers
-- [ ] Add a large planet or moon that slowly moves through the lower portion of the frame
-- [ ] Add hazard art
-- [ ] Add pickup art
+- [✓] Replace placeholder player with spaceship art
+- [✓] Add star background
+- [✓] Add at least two parallax layers
+- [✓] Add a large planet or moon that slowly moves through the lower portion of the frame
+- [✓] Add hazard art
+- [✓] Add pickup art
 - [ ] Add menu art
 - [ ] Add background music or ambient space audio
 - [ ] Add pickup sound
 - [ ] Add collision sound
 - [ ] Add death particles
-- [ ] Add pickup particles
+- [✓] Add pickup particles
 
 ### Practical Rule
 

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI finalScoreText;
+    [SerializeField] private GameObject gameOverFX;
 
     [Header("Score Settings")]
     [SerializeField] private float baseScorePerSecond = 10f;
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over.");
+        //Blood FX
+        if (gameOverFX != null)
+        {
+            gameOverFX.SetActive(true);
+        }
 
         int currentFinalScore = Mathf.FloorToInt(currentScore);
         int savedHighScore = PlayerPrefs.GetInt("HighScore", 0);

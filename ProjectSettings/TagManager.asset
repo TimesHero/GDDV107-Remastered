@@ -7,6 +7,8 @@ TagManager:
   - Hazard
   - Pickup
   - NearMiss
+  - ToxicCloud
+  - GasCloud
   layers:
   - Default
   - TransparentFX
