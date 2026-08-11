@@ -16,6 +16,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float baseScorePerSecond = 10f;
     [SerializeField] private int nearMissBonus = 50;
 
+    [Header("Audio Things")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shipDeathSFX;
+    [SerializeField] private AudioClip shipNearMissSFX;
+    [SerializeField] private AudioClip toxicCloudPowerDown;
+    [SerializeField] private AudioClip toxicCloudPowerUp;
+    [SerializeField] private AudioClip shieldPowerUp;
+    [SerializeField] private AudioClip shieldExpended;
+    [SerializeField] private AudioClip objectDestroyed;
+
+    [Header("Misc.")]
     public bool isGameOver = false;
     
     // TL;DR: Float allows for smooth fractional addition via Time.deltaTime.
@@ -53,9 +64,10 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over.");
-        //Blood FX
-        if (gameOverFX != null)
+        //Blood FX, SoundFX
+        if (gameOverFX != null && shipDeathSFX != null)
         {
+            AudioSource.PlayClipAtPoint(shipDeathSFX, Camera.main.transform.position);
             gameOverFX.SetActive(true);
         }
 
@@ -93,7 +105,22 @@ public class GameManager : MonoBehaviour
         if (isGameOver) return;
 
         // Applies a flat point bonus when the player executes a near miss.
+        AudioSource.PlayClipAtPoint(shipNearMissSFX, Camera.main.transform.position);
         currentScore += nearMissBonus;
         Debug.Log("Near Miss! Bonus awarded. Score: " + Mathf.FloorToInt(currentScore));
     }
+#region SOUND_EFFECTS
+    private void PlayAudioClip(AudioClip clip)
+    {
+        if (clip == null || audioSource ==  null) return;
+        audioSource.PlayOneShot(clip);
+    }
+    public void PowerDownSFX() => PlayAudioClip(toxicCloudPowerDown);
+    public void PowerUpSFX() => PlayAudioClip(toxicCloudPowerUp);
+    public void NearMissSFX() => PlayAudioClip(shipNearMissSFX);
+    public void ShieldUpSFX() => PlayAudioClip(shieldPowerUp);
+    public void ShieldDownSFX() => PlayAudioClip(shieldExpended);
+    public void ObjectDestroyedSFX() => PlayAudioClip(objectDestroyed);
+
+#endregion
 }

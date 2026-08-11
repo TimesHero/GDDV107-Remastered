@@ -202,6 +202,7 @@ public class PlayerHandler : MonoBehaviour
                 if (shieldVisual != null)
                 {
                     shieldVisual.SetActive(false);
+                    GameManager.Instance.ShieldDownSFX();
                     Debug.Log("Shield expired.");
                 }
 
@@ -225,10 +226,13 @@ public class PlayerHandler : MonoBehaviour
                 Debug.Log($"Shield has absorbed the impact.");
                 hasShield = false;
                 if(shieldVisual != null) shieldVisual.SetActive(false);
+                GameManager.Instance.ShieldDownSFX();
                 
                 if(shieldFX != null) StartCoroutine(FadeOutFX(shieldFX, fxFadeDuration));
                 
                 Destroy(collision.gameObject);
+                GameManager.Instance.ObjectDestroyedSFX();
+                GameManager.Instance.ShieldDownSFX();
             }
             else
             {
@@ -249,6 +253,7 @@ public class PlayerHandler : MonoBehaviour
         {
             Debug.Log("Player has collected a shield!");
             hasShield = true;
+            GameManager.Instance.ShieldUpSFX();
             currentShieldTimer = maxShieldTime;
             if(shieldVisual != null) shieldVisual.SetActive(true);
 
@@ -265,6 +270,7 @@ public class PlayerHandler : MonoBehaviour
         else if (collision.CompareTag("ToxicCloud"))
         {
             activeToxicClouds++;
+            if (GameManager.Instance != null && activeToxicClouds == 1) GameManager.Instance.PowerDownSFX();
 
             if(activeToxicClouds >= 1)
             {
@@ -320,8 +326,13 @@ public class PlayerHandler : MonoBehaviour
             {
                 // Timer expired. Restore controls and trigger the fade.
                 currentToxicTimer = 0f;
+                if (GameManager.Instance != null && currentToxicTimer == 0)
+                {
+                    GameManager.Instance.PowerUpSFX();
+                }
                 canMove = true;
                 Debug.Log("Controls restored.");
+
 
                 if (toxicCloudFX != null)
                 {
