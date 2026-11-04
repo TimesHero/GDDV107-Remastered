@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,8 +17,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float baseScorePerSecond = 10f;
     [SerializeField] private int nearMissBonus = 50;
 
+    
+
+    [Header("Misc.")]
+    public bool isGameOver = false;
+    
+    // TL;DR: Float allows for smooth fractional addition via Time.deltaTime.
+    public float currentScore = 0f; 
+
+#region AUDIO
     [Header("Audio Things")]
-    [SerializeField] private AudioSource audioSource;
+    //audio sources
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private float sfxAudioFade = 0.25f;
+    [SerializeField] private AudioSource ambientAudioSource;
+    [SerializeField] private float ambientAudioFadeDuration = 0.25f;
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private float musicAudioFadeDuration = 0.25f;
+    //sfx references
     [SerializeField] private AudioClip shipDeathSFX;
     [SerializeField] private AudioClip shipNearMissSFX;
     [SerializeField] private AudioClip toxicCloudPowerDown;
@@ -26,11 +43,40 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip shieldExpended;
     [SerializeField] private AudioClip objectDestroyed;
 
-    [Header("Misc.")]
-    public bool isGameOver = false;
-    
-    // TL;DR: Float allows for smooth fractional addition via Time.deltaTime.
-    public float currentScore = 0f; 
+    private IEnumerator FadeOutAudio(AudioSource source, float duration)
+    {
+        if (source == null ) yield break;
+
+        float startVolume = source.volume;
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / duration;
+
+            //control it here
+            source.volume = Mathf.Lerp(startVolume, 0f, normalizedTime);
+
+            yield return null;
+        }
+        source.Stop();
+    }
+
+//<Sound Effects>
+    private void PlayAudioClip(AudioClip clip)
+        {
+            if (clip == null || sfxSource ==  null) return;
+            sfxSource.PlayOneShot(clip);
+        }
+        public void PowerDownSFX() => PlayAudioClip(toxicCloudPowerDown);
+        public void PowerUpSFX() => PlayAudioClip(toxicCloudPowerUp);
+        public void NearMissSFX() => PlayAudioClip(shipNearMissSFX);
+        public void ShieldUpSFX() => PlayAudioClip(shieldPowerUp);
+        public void ShieldDownSFX() => PlayAudioClip(shieldExpended);
+        public void ObjectDestroyedSFX() => PlayAudioClip(objectDestroyed);
+//<Sound Effects End>
+#endregion
 
     private void Awake()
     {
@@ -69,6 +115,9 @@ public class GameManager : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(shipDeathSFX, Camera.main.transform.position);
             gameOverFX.SetActive(true);
+
+            StartCoroutine(FadeOutAudio(musicAudioSource, musicAudioFadeDuration));
+            StartCoroutine(FadeOutAudio(ambientAudioSource, ambientAudioFadeDuration));
         }
 
         int currentFinalScore = Mathf.FloorToInt(currentScore);
@@ -109,18 +158,4 @@ public class GameManager : MonoBehaviour
         currentScore += nearMissBonus;
         Debug.Log("Near Miss! Bonus awarded. Score: " + Mathf.FloorToInt(currentScore));
     }
-#region SOUND_EFFECTS
-    private void PlayAudioClip(AudioClip clip)
-    {
-        if (clip == null || audioSource ==  null) return;
-        audioSource.PlayOneShot(clip);
-    }
-    public void PowerDownSFX() => PlayAudioClip(toxicCloudPowerDown);
-    public void PowerUpSFX() => PlayAudioClip(toxicCloudPowerUp);
-    public void NearMissSFX() => PlayAudioClip(shipNearMissSFX);
-    public void ShieldUpSFX() => PlayAudioClip(shieldPowerUp);
-    public void ShieldDownSFX() => PlayAudioClip(shieldExpended);
-    public void ObjectDestroyedSFX() => PlayAudioClip(objectDestroyed);
-
-#endregion
 }
